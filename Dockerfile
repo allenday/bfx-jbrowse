@@ -17,6 +17,6 @@ RUN bower --allow-root -f install
 RUN bash ./setup.sh
 
 ## cleanup
-RUN apt-get -y remove --purge $BUILD_PACKAGES
-RUN apt-get -y remove --purge $(apt-mark showauto)
-RUN rm -rf /var/lib/apt/lists/*
+#RUN apt-get -y remove --purge $BUILD_PACKAGES
+#RUN apt-get -y remove --purge $(apt-mark showauto)
+#RUN rm -rf /var/lib/apt/lists/*
