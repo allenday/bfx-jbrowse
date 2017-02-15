@@ -1,8 +1,10 @@
+FROM bioperl/bioperl
 FROM nginx
+FROM node
 MAINTAINER Allen Day "allenday@allenday.com"
 EXPOSE 80
 
-ENV IMAGE_PACKAGES="perl libbio-perl-perl nodejs-legacy npm samtools libxml2 libpng-dev libexpat-dev libpq-dev zlib1g-dev"
+ENV IMAGE_PACKAGES="perl npm samtools libxml2 libpng-dev libexpat-dev libpq-dev zlib1g-dev gcc git make postgresql-client unzip wget"
 ENV BUILD_PACKAGES="gcc git make postgresql-client unzip wget"
 
 RUN apt-get -y update
@@ -21,5 +23,5 @@ RUN bash ./setup.sh
 #RUN apt-get -y remove --purge $(apt-mark showauto)
 #RUN rm -rf /var/lib/apt/lists/*
 
-COPY docker-entrypoint.sh /
-CMD ["/docker-entrypoint.sh"]
+#COPY docker-entrypoint.sh /
+#CMD ["/docker-entrypoint.sh"]
