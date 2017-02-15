@@ -20,3 +20,6 @@ RUN bash ./setup.sh
 #RUN apt-get -y remove --purge $BUILD_PACKAGES
 #RUN apt-get -y remove --purge $(apt-mark showauto)
 #RUN rm -rf /var/lib/apt/lists/*
+
+COPY docker-entrypoint.sh /
+CMD ["/docker-entrypoint.sh"]
