@@ -1,0 +1,2 @@
+# bfx-jbrowse
+gmod jbrowse
