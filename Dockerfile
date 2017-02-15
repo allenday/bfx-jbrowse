@@ -2,7 +2,7 @@ FROM nginx
 MAINTAINER Allen Day "allenday@allenday.com"
 EXPOSE 80
 
-ENV IMAGE_PACKAGES="perl libbio-perl-perl nodejs-legacy nginx npm samtools libxml2 libpng-dev libexpat-dev libpq-dev zlib1g-dev"
+ENV IMAGE_PACKAGES="perl libbio-perl-perl nodejs-legacy npm samtools libxml2 libpng-dev libexpat-dev libpq-dev zlib1g-dev"
 ENV BUILD_PACKAGES="gcc git make postgresql-client unzip wget"
 
 RUN apt-get -y update
