@@ -1,27 +1,28 @@
-FROM bioperl/bioperl
-FROM nginx
-FROM node
+FROM allenday/bfx-bioperl
 MAINTAINER Allen Day "allenday@allenday.com"
 EXPOSE 80
 
-ENV IMAGE_PACKAGES="perl npm samtools libxml2 libpng-dev libexpat-dev libpq-dev zlib1g-dev gcc git make postgresql-client unzip wget"
-ENV BUILD_PACKAGES="gcc git make postgresql-client unzip wget"
+RUN apt-get update
+RUN apt-get install -y less
+RUN apt-get install -y wget unzip make gcc g++ libpng-dev
+RUN apt-get install -y libjson-perl libheap-perl libperlio-gzip-perl liblocal-lib-perl libcapture-tiny-perl libdevel-size-perl libhash-merge-perl libfile-next-perl libfile-copy-recursive-perl libtest-warn-perl 
 
-RUN apt-get -y update
-RUN apt-get -y --no-install-recommends install $BUILD_PACKAGES $IMAGE_PACKAGES
-RUN npm install bower -g
+ENV VER=1.12.1-release
+ENV ZIP=$VER.zip
+ENV URL=https://github.com/GMOD/jbrowse/archive/$ZIP
+ENV FOLDER=jbrowse-$VER
+ENV DST=/var/www
 
-WORKDIR /var/www
-RUN rm -rf /var/www/html
-RUN git clone --recursive https://github.com/gmod/jbrowse html
-WORKDIR /var/www/html
-RUN bower --allow-root -f install
-RUN bash ./setup.sh
+WORKDIR $DST
+RUN rm -rf ./html
+RUN mkdir -p $DST && \
+    wget $URL -O $DST/$ZIP && \
+    unzip $DST/$ZIP -d $DST && \
+    rm $DST/$ZIP && \
+    cd $DST && \
+    mv $FOLDER html
 
-## cleanup
-#RUN apt-get -y remove --purge $BUILD_PACKAGES
-#RUN apt-get -y remove --purge $(apt-mark showauto)
-#RUN rm -rf /var/lib/apt/lists/*
-
-#COPY docker-entrypoint.sh /
-#CMD ["/docker-entrypoint.sh"]
+WORKDIR $DST/html
+RUN cat /dev/null | bin/cpanm -v --notest -l extlib/ --installdeps .
+RUN cat /dev/null | ./setup.sh
+CMD ["nginx"]
