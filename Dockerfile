@@ -27,7 +27,7 @@ RUN mkdir -p $DST && \
     cd $DST && \
     mv $FOLDER html
 
-#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 COPY bowerrc $DST/html/.bowerrc
 COPY bower.json $DST/html/
