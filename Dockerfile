@@ -11,7 +11,7 @@ RUN apt-get install -y nodejs-legacy npm git
 RUN npm install bower -g
 
 
-ENV VER=1.11.3-release
+ENV VER=1.12.1-release
 ENV ZIP=$VER.zip
 ENV URL=https://github.com/GMOD/jbrowse/archive/$ZIP
 ENV FOLDER=jbrowse-$VER
